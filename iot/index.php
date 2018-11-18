@@ -10,22 +10,23 @@
     <title>IoT Dashboard</title>
     <style type="text/css">
 		#wrapper {
-			width:1000px;
+			
+			width:100%;
 			clear:both;
 				}
 		#first {
-			  background-color:red;
-			  width:200px;
+			  
+			  width:20%;
 			  float:left;
 			}
 		#second {
 			  
-			  width:500px;
+			  width:40%;
 			  float:left;
 			}
 		#third {
-			  background-color:#bada55;
-			  width:300px;
+			  
+			  width:40%;
 			  float:left;
 			}
         .table_titles, .table_cells_odd, .table_cells_even {
@@ -50,11 +51,11 @@
     </style>
 </head>
 
-    <body>
+    <body style="background-color:rgb(116, 245, 202);">
         <h1>Light intensity</h1>
 <div id="wrapper">
 
-  <div id="first">first
+  <div id="first"><center><b>Readings</b></center>
     <table border="0" cellspacing="0" cellpadding="4">
       <tr>
             
@@ -92,8 +93,7 @@
 ?>
     </table>
 </div>	
- <div id="second">second
-  
+ <div id="second"><center><b>Graph of Current Readings</b></center>
     <!--To refresh after every 5 sec -->
     <meta http-equiv ='refresh' content='25'>
     <title>LineGraph</title>
@@ -108,17 +108,32 @@
       <canvas id="mycanvas"></canvas>
     </div>
  </div>
- <div id="third">third
- 
+ <div id="third"><center><b>Date wise Readings</b></center>
+ <center>
+ <table>
+ <tr><td>
  <form action="date_fetch.php" method = "get">
-  From: <input type="date" name="from"><br>
-  To: <input type="date" name="to"><br>
+  From: </td><td><input type="date" name="from"><br>
+  </td></tr>
+  
+  <tr><td>
+  To  :  </td><td>   <input type="date" name="to"><br>
+	</td></tr>
+<tr><td></td><td>
   <input type="submit" value="Submit">
+  </td></tr>
 </form>
+</table>
+ </center>
+    
+    <!-- javascript -->
+    
+    
  
  </div>
 </div>
     <!-- javascript -->
+	<script type="text/javascript" src="js/date_fetch.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/Chart.min.js"></script>
     <script type="text/javascript" src="js/linegraph.js"></script>
