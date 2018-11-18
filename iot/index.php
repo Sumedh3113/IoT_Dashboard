@@ -8,6 +8,15 @@
 <html>
 <head>
     <title>IoT Dashboard</title>
+	<script>
+                window.setInterval("refreshDiv()", 5000);
+            function refreshDiv(){
+                document.getElementById("second").innerHTML;
+				//<center><b>Graph of Current Readings</b></center><title>LineGraph</title><style>.chart-container {width: 540px;height: 500px;}</style><div class='chart-container'><canvas id='mycanvas'></canvas> </div></div>  " ;
+            }
+        </script>
+	
+	
     <style type="text/css">
 		#wrapper {
 			
@@ -49,6 +58,7 @@
         }
         body { font-family: "Trebuchet MS", Arial; }
     </style>
+	
 </head>
 
     <body style="background-color:rgb(116, 245, 202);">
@@ -65,8 +75,8 @@
 <?php
 
 
-    // Retrieve all records and display them
-    $result = mysqli_query($connection,"SELECT * FROM final");
+    // Retrieve all records in descending order and display latest 15 records
+    $result = mysqli_query($connection,"SELECT * FROM final ORDER BY date DESC LIMIT 15");
 
     // Used for row color toggle
     $oddrow = true;
@@ -95,7 +105,7 @@
 </div>	
  <div id="second"><center><b>Graph of Current Readings</b></center>
     <!--To refresh after every 5 sec -->
-    <meta http-equiv ='refresh' content='25'>
+    <!--<meta http-equiv ='refresh' content='25'>-->
     <title>LineGraph</title>
     <style>
       .chart-container {
@@ -133,6 +143,7 @@
  </div>
 </div>
     <!-- javascript -->
+	
 	<script type="text/javascript" src="js/date_fetch.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/Chart.min.js"></script>
