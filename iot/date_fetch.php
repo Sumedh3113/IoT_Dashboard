@@ -34,4 +34,6 @@ require_once('connect.php');
 	//printing these values is needed to generate the graph
 	print json_encode($data);
 	
+	header("Location: date_fetch.html")
+	
 ?>
