@@ -25,17 +25,17 @@
 				}
 		#first {
 			  
-			  width:20%;
+			  width:34%;
 			  float:left;
 			}
 		#second {
 			  
-			  width:40%;
+			  width:46%;
 			  float:left;
 			}
 		#third {
 			  
-			  width:40%;
+			  width:20%;
 			  float:left;
 			}
         .table_titles, .table_cells_odd, .table_cells_even {
@@ -69,8 +69,10 @@
     <table border="0" cellspacing="0" cellpadding="4">
       <tr>
             
+			<td class="table_titles">Device Id</td>
             <td class="table_titles">Date and Time</td>
             <td class="table_titles">Lights</td>
+            <td class="table_titles">Status</td>
           </tr>
 <?php
 
@@ -96,8 +98,10 @@
         $oddrow = !$oddrow;
 
         echo '<tr>';
+        echo '   <td'.$css_class.'>'.$row["id"].'</td>';
         echo '   <td'.$css_class.'>'.$row["date"].'</td>';
-        echo '   <td'.$css_class.'>'.$row["Lights"].'</td>';
+		echo '   <td'.$css_class.'>'.$row["Lights"].'</td>';
+        echo '   <td'.$css_class.'>'.$row["status"].'</td>';
         echo '</tr>';
     }
 ?>
@@ -105,19 +109,24 @@
 </div>	
  <div id="second"><center><b>Graph of Current Readings</b></center>
     <!--To refresh after every 5 sec -->
-    <!--<meta http-equiv ='refresh' content='25'>-->
+    <meta http-equiv ='refresh' content='10'>
     <title>LineGraph</title>
     <style>
       .chart-container {
         width: 540px;
-        height: 500px;
+        height: 300px;
       }
     </style>
   
      <div class="chart-container">
       <canvas id="mycanvas"></canvas>
     </div>
+ 
+<center>
+<b>Control:</b><input type="button" name="control" value="Light">
+</center>
  </div>
+ 
  <div id="third"><center><b>Date wise Readings</b></center>
  <center>
  <table>
@@ -142,6 +151,7 @@
  
  </div>
 </div>
+
     <!-- javascript -->
 	
 	<script type="text/javascript" src="js/date_fetch.js"></script>
