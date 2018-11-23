@@ -2,11 +2,29 @@
     // Start MySQL Connection
     include('connect.php'); 
 
+$var_value=0;
+	if (isset($_POST['control']))
+			{
+				$var_value = $_POST["control"];
+					date_default_timezone_set('america/los_angeles');
+    $dateS = date('Y-m-d', time());// instead of m/d/Y
+    
+//either get light intensity from here else create new table just to turn the light ON and OFF 	
+	$SQL = "INSERT INTO led VALUES ('$var_value')";     
 
+    // Execute SQL statement
+    mysqli_query($connection,$SQL);
+
+			}
+			
+
+		
+		
 ?>
 
 <html>
 <head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>IoT Dashboard</title>
 	<script>
                 window.setInterval("refreshDiv()", 5000);
@@ -57,7 +75,71 @@
             border: 2px solid #333;
         }
         body { font-family: "Trebuchet MS", Arial; }
-    </style>
+		
+			
+			
+			.switch {
+			  position: relative;
+			  display: inline-block;
+			  width: 60px;
+			  height: 34px;
+			}
+
+			.switch input { 
+			  opacity: 0;
+			  width: 0;
+			  height: 0;
+			}
+
+			.slider {
+			  position: absolute;
+			  cursor: pointer;
+			  top: 0;
+			  left: 0;
+			  right: 0;
+			  bottom: 0;
+			  background-color: #ccc;
+			  -webkit-transition: .4s;
+			  transition: .4s;
+			}
+
+			.slider:before {
+			  position: absolute;
+			  content: "";
+			  height: 26px;
+			  width: 26px;
+			  left: 4px;
+			  bottom: 4px;
+			  background-color: white;
+			  -webkit-transition: .4s;
+			  transition: .4s;
+			}
+
+			input:checked + .slider {
+			  background-color: #2196F3;
+			}
+
+			input:focus + .slider {
+			  box-shadow: 0 0 1px #2196F3;
+			}
+
+			input:checked + .slider:before {
+			  -webkit-transform: translateX(26px);
+			  -ms-transform: translateX(26px);
+			  transform: translateX(26px);
+			}
+
+			/* Rounded sliders */
+			.slider.round {
+			  border-radius: 34px;
+			}
+
+			.slider.round:before {
+			  border-radius: 50%;
+			}
+			</style>
+
+    
 	
 </head>
 
@@ -123,7 +205,18 @@
     </div>
  
 <center>
-<b>Control:</b><input type="button" name="control" value="Light">
+
+
+
+
+<b>Control:</b>
+<form action="" method ='post'>
+ ON <input type="submit" name="control" value="1" > <br>
+ OFF<input type="submit" name="control" value="0">
+</form>  
+
+
+<!--<b>Control:</b><input type="button" name="control" value="Light">-->
 </center>
  </div>
  
