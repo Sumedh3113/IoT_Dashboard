@@ -5,19 +5,35 @@
 $var_value=0;
 	if (isset($_POST['control']))
 			{
-				$var_value = $_POST["control"];
+				if($_POST['control']=='ON'){
+				$var_value = 1;	
+				}
+				else{
+					$var_value = 0;
+				}
 					date_default_timezone_set('america/los_angeles');
     $dateS = date('Y-m-d', time());// instead of m/d/Y
     
 //either get light intensity from here else create new table just to turn the light ON and OFF 	
-	$SQL = "INSERT INTO led VALUES ('$var_value')";     
+	$SQL = "UPDATE `led` SET `status` = ('$var_value')";     
 
     // Execute SQL statement
     mysqli_query($connection,$SQL);
 
 			}
 			
+$SQL_new = "SELECT * FROM final ORDER BY date DESC LIMIT 1";			
+$result_new = mysqli_query($connection,$SQL_new);
 
+
+while( $row_new = mysqli_fetch_assoc($result_new) ){
+	//echo $row_new["status"];
+if($row_new["status"] == 'inactive'){
+	$message = 'Device ' . $row_new["id"] .' becomes Inactive';
+	echo "<script type='text/javascript'>alert('$message');</script>";
+	
+				}
+			}
 		
 		
 ?>
@@ -186,13 +202,15 @@ $var_value=0;
         echo '   <td'.$css_class.'>'.$row["status"].'</td>';
         echo '</tr>';
     }
+	
+
+	
 ?>
     </table>
 </div>	
  <div id="second"><center><b>Graph of Current Readings</b></center>
     <!--To refresh after every 5 sec -->
     <meta http-equiv ='refresh' content='10'>
-    <title>LineGraph</title>
     <style>
       .chart-container {
         width: 540px;
@@ -204,20 +222,6 @@ $var_value=0;
       <canvas id="mycanvas"></canvas>
     </div>
  
-<center>
-
-
-
-
-<b>Control:</b>
-<form action="" method ='post'>
- ON <input type="submit" name="control" value="1" > <br>
- OFF<input type="submit" name="control" value="0">
-</form>  
-
-
-<!--<b>Control:</b><input type="button" name="control" value="Light">-->
-</center>
  </div>
  
  <div id="third"><center><b>Date wise Readings</b></center>
@@ -237,6 +241,28 @@ $var_value=0;
 </form>
 </table>
  </center>
+ 
+ <br><br>
+ <center>
+
+
+
+<table border="solid"><tr><th>
+<b>Control:</b>
+</tr>
+</th>
+<tr><td>
+<form action="" method ='post'>
+  <center><input type="submit" name="control" value="ON" > </center>
+ </td></tr>
+<tr><td>
+ <center><input type="submit" name="control" value="OFF"></center>
+</td></tr>
+ </form>  
+</table>
+<!--<b>Control:</b><input type="button" name="control" value="Light">-->
+</center>
+
     
     <!-- javascript -->
     
