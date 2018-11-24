@@ -19,11 +19,8 @@
 	if(1 >= 0){
 	$var = 'Active';
 	}
-	/*if($_GET['Lights'] == 0 || $_GET['Lights'] == NULL || $_GET['Lights'] == ''){
-		$var = 'Inactive';
-	}
-	*/
-	$SQL = "INSERT INTO final VALUES ('$dateS','0','1','$var')";     
+	
+	$SQL = "INSERT INTO final VALUES ('$dateS','85','2','$var','')";     
 
     // Execute SQL statement
     mysqli_query($connection,$SQL);
