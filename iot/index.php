@@ -22,13 +22,13 @@ $var_value=0;
 
 			}
 			
-$SQL_new = "SELECT * FROM final ORDER BY date DESC LIMIT 1";			
+$SQL_new = "SELECT * FROM final ORDER BY sequence DESC LIMIT 1";			
 $result_new = mysqli_query($connection,$SQL_new);
 
 
 while( $row_new = mysqli_fetch_assoc($result_new) ){
 	//echo $row_new["status"];
-if($row_new["status"] == 'inactive'){
+if($row_new["status"] == 'Inactive'){
 	$message = 'Device ' . $row_new["id"] .' becomes Inactive';
 	echo "<script type='text/javascript'>alert('$message');</script>";
 	
@@ -176,7 +176,7 @@ if($row_new["status"] == 'inactive'){
 
 
     // Retrieve all records in descending order and display latest 15 records
-    $result = mysqli_query($connection,"SELECT * FROM final ORDER BY date DESC LIMIT 15");
+    $result = mysqli_query($connection,"SELECT * FROM final ORDER BY sequence DESC LIMIT 15");
 
     // Used for row color toggle
     $oddrow = true;
