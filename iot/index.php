@@ -1,4 +1,5 @@
 <?php 
+	//Web portal file
     // Start MySQL Connection
     include('connect.php'); 
 
@@ -22,20 +23,10 @@ $var_value=0;
 
 			}
 			
-$SQL_new = "SELECT * FROM final ORDER BY sequence DESC LIMIT 1";			
-$result_new = mysqli_query($connection,$SQL_new);
-
-
-while( $row_new = mysqli_fetch_assoc($result_new) ){
-	//echo $row_new["status"];
-if($row_new["status"] == 'Inactive'){
-	$message = 'Device ' . $row_new["id"] .' becomes Inactive';
-	echo "<script type='text/javascript'>alert('$message');</script>";
-	
-				}
-			}
 		
 		
+        //   $ip =   "http://iotdashboard.atwebpages.com/add_data.php";
+      //     exec("ping -n 3 $ip", $output, $status);     
 ?>
 
 <html>
@@ -59,12 +50,12 @@ if($row_new["status"] == 'Inactive'){
 				}
 		#first {
 			  
-			  width:34%;
+			  width:35%;
 			  float:left;
 			}
 		#second {
 			  
-			  width:46%;
+			  width:45%;
 			  float:left;
 			}
 		#third {
@@ -159,8 +150,9 @@ if($row_new["status"] == 'Inactive'){
 	
 </head>
 
+    
     <body style="background-color:rgb(116, 245, 202);">
-        <h1>Light intensity</h1>
+        <center><h1>IOT_DASHBOARD(Team-11)</h1></center><hr>
 <div id="wrapper">
 
   <div id="first"><center><b>Readings</b></center>
@@ -168,15 +160,15 @@ if($row_new["status"] == 'Inactive'){
       <tr>
             
 			<td class="table_titles">Device Id</td>
-            <td class="table_titles">Date and Time</td>
-            <td class="table_titles">Lights</td>
-            <td class="table_titles">Status</td>
+            <td class="table_titles">Date</td>
+            <td class="table_titles">Light Intensity</td>
+           <!-- <td class="table_titles">Status</td>-->
           </tr>
 <?php
 
 
     // Retrieve all records in descending order and display latest 15 records
-    $result = mysqli_query($connection,"SELECT * FROM final ORDER BY sequence DESC LIMIT 15");
+    $result = mysqli_query($connection,"SELECT * FROM final ORDER BY sequence DESC LIMIT 12");
 
     // Used for row color toggle
     $oddrow = true;
@@ -198,8 +190,8 @@ if($row_new["status"] == 'Inactive'){
         echo '<tr>';
         echo '   <td'.$css_class.'>'.$row["id"].'</td>';
         echo '   <td'.$css_class.'>'.$row["date"].'</td>';
-		echo '   <td'.$css_class.'>'.$row["Lights"].'</td>';
-        echo '   <td'.$css_class.'>'.$row["status"].'</td>';
+	echo '   <td'.$css_class.'>'.$row["Lights"].'</td>';
+        //echo '   <td'.$css_class.'>'.$row["status"].'</td>';
         echo '</tr>';
     }
 	
@@ -209,8 +201,8 @@ if($row_new["status"] == 'Inactive'){
     </table>
 </div>	
  <div id="second"><center><b>Graph of Current Readings</b></center>
-    <!--To refresh after every 5 sec -->
-    <meta http-equiv ='refresh' content='10'>
+    <!--To refresh after every 5 sec
+    <meta http-equiv ='refresh' content='10'>-->
     <style>
       .chart-container {
         width: 540px;
@@ -221,8 +213,36 @@ if($row_new["status"] == 'Inactive'){
      <div class="chart-container">
       <canvas id="mycanvas"></canvas>
     </div>
+ <div><center>
+ <?php 	
+ $SQL_new = "SELECT * FROM final ORDER BY sequence DESC LIMIT 1";			
+$result_new = mysqli_query($connection,$SQL_new);
+
+
+while( $row_new = mysqli_fetch_assoc($result_new) ){
+        if($row_new["Lights"] == ''){
+        $value = 'Inactive';
+        }
+        else{
+        $value = 'Active';
+        }
+	//echo $row_new["status"];
+        echo '<table border="solid"><tr><td>Device  <b>' . $row_new["id"] .'</b> is <b>'. $value.'</b></td></tr></table>';
+
+                        }
+
+       
+         	
+
+        
+ 
+?>
+</center>
+
+ </div>
  
  </div>
+ 
  
  <div id="third"><center><b>Date wise Readings</b></center>
  <center>
@@ -242,6 +262,42 @@ if($row_new["status"] == 'Inactive'){
 </table>
  </center>
  
+ <hr>
+
+<center>
+<h3>Graph for specific device<h3>
+<form action="id.php" method = "post">
+<input type="text" name="ids" placeholder="Copy the ID from Table "></input>
+<input type="submit" value="Submit">
+</form>
+
+
+</center>
+<hr>
+<center>
+
+<table border="solid"><tr><th>
+<b>Control LED:</b>
+</th>
+</tr>
+<form action="#" method ='post'>
+<tr><td>
+<center><input type="submit" name="control" value="ON" > </center> 
+ </td></tr>
+<tr><td>
+ <center><input type="submit" name="control" value="OFF"></center>
+ 
+</td></tr>
+ </form>  
+</table>
+<!--<b>Control:</b><input type="button" name="control" value="Light">-->
+</center>
+<hr>
+
+ 
+ 
+ 
+<!-- 
  <br><br>
  <center>
 
@@ -249,26 +305,110 @@ if($row_new["status"] == 'Inactive'){
 
 <table border="solid"><tr><th>
 <b>Control:</b>
-</tr>
 </th>
-<tr><td>
+</tr>
+
 <form action="" method ='post'>
-  <center><input type="submit" name="control" value="ON" > </center>
+<tr><td>
+<center><input type="submit" name="control" value="ON" > </center> 
  </td></tr>
 <tr><td>
  <center><input type="submit" name="control" value="OFF"></center>
+ 
 </td></tr>
  </form>  
 </table>
+</center>
+<br> -->
 <!--<b>Control:</b><input type="button" name="control" value="Light">-->
+
+<!--
+
+<center>
+<table border="solid"><tr><th>
+<b>New Buttons:</b>
+</th>
+</tr>
+
+<form action="led.php" method ='post'>
+<tr><td>
+<center><input type="submit" name="control" value="ON" > </center> 
+ </td></tr>
+<tr><td>
+ <center><input type="submit" name="control" value="OFF"></center>
+ 
+</td></tr>
+ </form>  
+</table>
+</center>
+-->
+<!--<b>Control:</b><input type="button" name="control" value="Light">-->
+
+<!--
+<center>
+
+<table border="solid">
+<tr><td>
+<button onclick="myFunction(1)">ONJS</button>
+</td></tr>
+<tr><td>
+<button onclick="myFunction(0)">OFFJS</button>   
+</td></tr>
+
+</table>
+</center>
+-->
+
+<center>
+<table border="solid">
+<tr><td>
+
+Status:  <?php   
+        $sql_led = "SELECT * FROM led";
+	
+	$result_led= mysqli_query($connection, $sql_led);
+        
+       // echo $result_led['status'];
+        
+        while ($row_led = mysqli_fetch_assoc($result_led))
+        {
+        
+        echo $row_led['status'];
+        }
+        
+        ?>
+
+</td></tr>
+
+</table>
 </center>
 
-    
-    <!-- javascript -->
+<hr>
+<center>
+<button><a href="report.php">Download Report</a>
+</button>
+
+
+</center>
+
+
+
+<!-- javascript -->
     
     
  
  </div>
+
+<p id = "yesnojs" class= "jstest">
+
+</p>
+
+<script>
+function myFunction(value) {
+    document.getElementById("yesnojs").innerHTML =  value ;
+}
+</script>
+
 </div>
 
     <!-- javascript -->
